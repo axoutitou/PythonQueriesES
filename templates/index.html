@@ -16,9 +16,29 @@
 
         <div class="container-fluid">
             <div class="row justify-content-center">
-                
+                <div class="col-lg-4" >
+                    <form method="POST" style="padding-top: 200px;">
+                        <div class="form-group">
+                            <h1>Your query:</h1>
+                            <input type="text" class="form-control" id="query" name="query"><br>
+                            <button type="submit" class="btn btn-danger btn-lg">Submit</button>
+                        </div>  
+
+                    </form>
+
+                    <h1>Response :</h1>
+                    {% if result %}
+                    <div id="response" class="overflow-auto">{{ result }}</div>
+                    {% else %}
+                    <div id="response" class="overflow-auto">Nothing to display</div>
+                    {% endif %}
+
+                </div>
             </div>
         </div>
+        
+
+        
         
     </body>
 </html>
