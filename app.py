@@ -12,8 +12,9 @@ def index():
         result = simpleQuery(query)
         index_pattern = getIndexPattern()
         index = index_pattern['kibana_sample_data_ecommerce']['mappings']['properties']
-        tmp = dumps(result, indent=4, separators=(',', ': '))
-        return render_template('index.html', result=tmp, index=index)
+        rendered_result = dumps(result, indent=4, separators=(',', ': '))
+        rendered_query = dumps(query, indent=4, separators=(',', ': '))
+        return render_template('index.html', query=rendered_query, result=rendered_result, index=index)
         
     else :
         index_pattern = getIndexPattern()
