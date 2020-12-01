@@ -33,10 +33,10 @@
         <div class="container-fluid" style="margin-top: 50px;">
             <div class="row justify-content-center align-items-center">
                 <div class="col-lg-3">
-                    <h1>Index pattern</h1><br>
-                    <p>Here is a description of our index pattern dataset to help you building your request</p>
+                    <h1>Index mapping</h1><br>
+                    <p>Here is a description of our index mapping dataset to help you building your request</p>
                 </div>
-                <div class="col-lg-4">
+				<div class="col-lg-4">
                     <table id="index_pattern">
                         <thead>
                             <tr>
@@ -49,6 +49,15 @@
                                 <tr>
                                     <td>{{ key }}</td>
                                     <td>{{ item.type }}</td>
+
+                                    {% if item['properties'] is defined %}
+                                        {% for key_rec, item_rec in item['properties'].items() %}
+                                            <tr>
+                                                <td>{{ key }}.{{ key_rec }} </td>
+                                                <td>{{ item_rec.type }} </td>
+                                            </tr>   
+                                        {% endfor %}
+                                    {% endif %}
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -57,21 +66,50 @@
                 </div>
             </div><br><br><br>
             <div class="row justify-content-center">
-                <div class="col-lg-4" >
+				<div class="col">
+                    <h3>Try some written queries:</h3>
+					<div class="btn-group-vertical">
+                        <form method="POST">
+                            <select class="form-control form-control-lg" id="query_example" name="query_example">
+                                <option value="1">Select the customers of the category "Women's Shoes" and display their names and the brand of the products they bought</option>
+                                <option value="2">Select the products bought by the customers in January 2020</option>
+                                <option value="3">Select the clients which names begin with 'B'</option>
+                                <option value="4">Select daily orders splited by gender</option>
+                                <option value="5">Select average products minimum price by brand</option>
+                            </select>
+                            <br>
+                            <button type="submit" class="btn btn-dark">Try it</button>
+                        </form>
+					</div>
+				</div>	
+                <div class="col" >
                     <form method="POST">
                         <div class="form-group">
-                            <h1>Your query:</h1>
-                            <input type="text" class="form-control" id="query" name="query"><br>
+                            <h3>Your query:</h3>
+                            {% if result %}
+                                <div class="overflow-auto">
+                                    <textarea class="form-control myTextarea" id="query" name="query" style="height: 150px;"> {{ query }}</textarea>
+                            </div>
+                            {% else %}
+                                <div class="overflow-auto">
+                                    <textarea class="form-control myTextarea" id="query" name="query" style="height: 150px;"></textarea>
+                                </div>
+                            {% endif %}
+                            <br>
                             <button type="submit" class="btn btn-danger btn-lg">Submit</button>
                         </div>  
-
                     </form>
-
-                    <h1>Response :</h1>
+				</div>
+                <div class="col" >
+                    <h3>Response :</h3>
                     {% if result %}
-                    <div id="response" class="overflow-auto">{{ result }}</div>
+                        <div class="overflow-auto">
+                            <textarea class="form-control myTextarea" style="height: 150px;"> {{ result }}</textarea>                       
+                        </div>
                     {% else %}
-                    <div id="response" class="overflow-auto">Nothing to display</div>
+                        <div class="overflow-auto">
+                            <textarea class="form-control myTextarea" style="height: 150px;">Nothing to display</textarea>
+                        </div>
                     {% endif %}
 
                 </div>
