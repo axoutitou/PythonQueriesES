@@ -453,6 +453,10 @@ This application is running on flask with python. In order to make it run on you
 >pip instal elasticsearch
 >pip instal Flask
 
+You also need to have an elastcisearch running localy on your machine with the following example dataset :
+
+![Get-Image-1](https://i.ibb.co/z24p0jd/31.png)
+
 You can then run the application with the command :
 >python app.py
 
@@ -460,7 +464,13 @@ The application is accesible at :
 - Windows : 127.0.0.1:5000
 - Linux : 0.0.0.0:5000
 
-![Get-Image-1]()
+### Screenshot of the user interface
+![Get-Image-1](https://i.ibb.co/qyvX9Nx/1.png)
+- 1. The user can search for a precise field he wants to build a query on
+- 2. The user has an overview of the entire index mapping dataset (or just of the searched fields) in order to help him build the query
+- 3. The user can access some already written queries as example by dropping the list. The querry will be shown in the  field and the result in the field 5.
+- 4. The user can enter a query to be executed in the field 4. The query selected from the examples will also be shown here.
+- 5. The response as it is received from the Kibana server will be displayed here
 
 ### Working example
 
@@ -502,10 +512,4 @@ The application is accesible at :
 >
 >(Because of the ',' symbol)
 
-### Screenshot of the user interface
-![Get-Image-1](https://i.ibb.co/qyvX9Nx/1.png)
-- 1. The user can search for a precise field he wants to build a query on
-- 2. The user has an overview of the entire index mapping dataset (or just of the searched fields) in order to help him build the query
-- 3. The user can access some already written queries as example by dropping the list. The querry will be shown in the  field and the result in the field 5.
-- 4. The user can enter a query to be executed in the field 4. The query selected from the examples will also be shown here.
-- 5. The response as it is received from the Kibana server will be displayed here
+Here we have trouble with queries that contain , or []. In fact we have to turn string expresion, wrote by the user in our textearea into a python nested dictionnary. We didn't found library to do this convertion so we have implemented our own parser in order to realise it. We can improve the autorised queries by improving our parser. However we didn't have enough time to do it.
